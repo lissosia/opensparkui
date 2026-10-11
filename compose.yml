@@ -1,0 +1,14 @@
+services:
+  api:
+    build: ./backend
+    restart: unless-stopped
+    networks: [internal]
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${STUDIO_PORT:-8088}:80"
+    depends_on: [api]
+    networks: [internal]
+networks:
+  internal:
